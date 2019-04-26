@@ -119,7 +119,7 @@ func mirrorGitHubCloudSourceRepositories(githubRepo *github.PushEventRepository)
 }
 
 func githubRepositoryFromRequest(r *http.Request) (*github.PushEventRepository, error) {
-	payload, err := github.ValidatePayload(r, []byte("pipeline"))
+	payload, err := github.ValidatePayload(r, []byte("reposync"))
 	if err != nil {
 		return nil, fmt.Errorf("Unable to validate webhook payload: %s", err)
 	}
