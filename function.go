@@ -101,7 +101,7 @@ func mirrorGitHubCloudSourceRepositories(githubRepo *github.PushEventRepository)
 	}
 	cmd := exec.Command("git", "clone", "--mirror", *githubRepo.CloneURL, dir)
 	output, err := cmd.CombinedOutput()
-	log.Println(output)
+	log.Printf("%s", output)
 	if err != nil {
 		return fmt.Errorf("Unable to clone the %s repo: %s", *githubRepo.CloneURL, err)
 	}
@@ -109,7 +109,7 @@ func mirrorGitHubCloudSourceRepositories(githubRepo *github.PushEventRepository)
 	cmd = exec.Command("git", "--git-dir", dir, "config", "credential.helper",
 		fmt.Sprintf("store --file=%s", tmpfile.Name()))
 	output, err = cmd.CombinedOutput()
-	log.Println(output)
+	log.Printf("%s", output)
 	if err != nil {
 		return fmt.Errorf("Unable to create git credential.helper: %s", err)
 	}
@@ -118,7 +118,7 @@ func mirrorGitHubCloudSourceRepositories(githubRepo *github.PushEventRepository)
 
 	cmd = exec.Command("git", "--git-dir", dir, "push", "--mirror", "--repo", remoteUrl)
 	output, err = cmd.CombinedOutput()
-	log.Println(output)
+	log.Printf("%s", output)
 	if err != nil {
 		return fmt.Errorf("Unable to sync the %s source repo: %s", cloudSourceRepoName, err)
 	}
